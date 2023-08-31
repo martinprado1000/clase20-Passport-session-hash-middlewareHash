@@ -23,7 +23,7 @@ submitFormLogin.addEventListener("submit", async (e) => {
     password: password.value,
   };
   try {
-    await fetch("/api/register", {
+    await fetch("/api/login", {
       method: "POST",
       headers: { "Content-type": "application/json;charset=UTF-8" },
       body: JSON.stringify(data),

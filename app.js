@@ -8,6 +8,9 @@ const handlebars = require("express-handlebars");
 const ioFn = require("./utils/io.js");
 const cookieParser = require("cookie-parser"); // Requerimos cookie-parse
 const MongoStore = require("connect-mongo");
+const passport = require("passport");
+const initializePassport = require("./config/passportConfig.js")
+const flash = require("connect-flash")
 
 const sessionRoutesFn = require("./routes/sessionRoutes.js");
 const productsRoutesFn = require("./routes/productsRoutes.js");
@@ -24,6 +27,7 @@ app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
+app.use(flash())
 
 const session = require("express-session") 
 // Middleware de sessionon
@@ -50,6 +54,10 @@ const httpServer = app.listen(PORT, () =>
 ); // Al server de express lo guardamos en una variable
 
 const io = ioFn(httpServer); // Ejecuto la funcion que crea el server socket.io y le passamos el server httpServer como parametro.
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 const sessionRoutes = sessionRoutesFn(io);
 const productsRoutes = productsRoutesFn(io);

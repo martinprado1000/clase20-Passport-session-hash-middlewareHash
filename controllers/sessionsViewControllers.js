@@ -9,6 +9,9 @@ const pagesFn = (io) => {
   };
 
   const login = async (req, res) => {
+    console.log(req.flash('error'))
+    //const error = req.flash('error')[0];
+    //console.log(error)
     res.render("login");
   };
 

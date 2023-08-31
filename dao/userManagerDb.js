@@ -2,6 +2,9 @@
 const session = require("express-session");
 const userModel = require("../models/userModel");
 const { hashPassword } = require("../utils/passwordHash");
+const passport = require("passport");
+
+const initializePassport = require("../config/passportConfig")
 
 class UserManagerDb {
   constructor(io) {
@@ -19,7 +22,6 @@ class UserManagerDb {
   }
 
   async createUser(data) {
-    // Con este metodo creo 100 productos
     try {
       //console.log(data.password)
       const exist = await this.getUser(data.email);
@@ -29,23 +31,15 @@ class UserManagerDb {
         const user = await userModel.create(data);
         console.log(user);
         console.log(`Usuario ${data.email} creado correctamente`);
-        this.io.emit(
-          "registerUser",
-          JSON.stringify({
-            status: 200,
-            data: `Usuario ${data.email} creado correctamente`,
-          })
-        );
-        return;
+        return {
+          status: 200,
+          data: `Usuario ${data.email} creado correctamente`,
+        };
       }
-      this.io.emit(
-        "errorRegister",
-        JSON.stringify({
-          status: 400,
-          data: `El Usuario ${data.email} ya existe`,
-        })
-      );
-      return;
+      return {
+        status: 400,
+        data: `El Usuario ${data.email} ya existe`,
+      };
     } catch (e) {
       console.log("Error al leer la db");
       this.io.emit(

@@ -55,7 +55,7 @@ const ioFn = (httpServer) => {
     });
 
     //-------------------REGISTER----------------------------------------------
-    socket.on("regiterUser", async (data) => {
+    socket.on("regiterUser", async (data) => { 
       //console.log(data);
       const response = await userManager.createUser(data);
     });

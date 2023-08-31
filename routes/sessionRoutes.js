@@ -1,16 +1,20 @@
 const { Router } = require("express");
+const passport = require("passport")
+const flash = require("connect-flash")
 
 const sessionRoutesFn = ((io)=>{
 
   const pagesFn = require("../controllers/sessionsControllers")
 
-  const { register, registerPost, registerDelete, resetPassword } = pagesFn(io)  
+  const { register, loginPost, registerPost, registerDelete, resetPassword } = pagesFn(io)  
 
 const router = Router();
 
-  router.get("/", register);
+  router.get("/", register); 
 
-  router.post("/register", registerPost);
+  router.post("/register",  passport.authenticate('register',{failureRedirect:'/register' , failureFlash: true}), registerPost); // Inyectamos passport como un middleware.
+  
+  router.post("/login", passport.authenticate('login',{failureRedirect:'/login' , failureFlash: true}), loginPost);
 
   router.delete("/register", registerDelete);
 
