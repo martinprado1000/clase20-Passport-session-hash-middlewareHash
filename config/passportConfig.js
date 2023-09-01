@@ -78,7 +78,7 @@ const initializePassport = () => {
   });
 
   passport.deserializeUser(async (id, done) => {
-    const user = await userModel.findOne({ id });
+    const user = await userModel.findOne({ _id:id });
     done(null, user);
   });
 

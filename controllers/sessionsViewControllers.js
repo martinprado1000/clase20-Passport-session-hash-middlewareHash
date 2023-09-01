@@ -8,12 +8,11 @@ const pagesFn = (io) => {
     
   };
 
-  const login = async (req, res) => {
-    //console.log(req.flash('error'))
-    //const error = req.flash('error')[0];
-    //console.log(error)
-    //console.log({user:req.user, session:req.session})
-    res.render("login");
+  const login = async (req, res) => { 
+    return res.render('login')
+    // const error = req.flash('error')[0]
+    // console.log(error)
+    // return res.render("login",{error,hasError:error!==undefined});
   };
 
   const recoveryPassword = async (req, res) => {

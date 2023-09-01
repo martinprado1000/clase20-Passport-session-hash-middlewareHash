@@ -1,6 +1,8 @@
 <div class="container mt-5">
   <div class="card text-center">
-
+    {{#if hasError}}
+    <p>{{error}}</p>
+    {{/if}}
     <div class="card-header">
       Iniciar sesion
     </div>

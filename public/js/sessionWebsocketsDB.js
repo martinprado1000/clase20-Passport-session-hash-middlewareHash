@@ -28,7 +28,6 @@ submitForm.addEventListener("submit", async (e) => {
     .then((response) => response.json())
     .then((res) => {
       if (res.status == 200) {
-        console.log(res);
         Swal.fire({
           title: `${res.data}`,
           icon: "success", // succes , warning , info , question
