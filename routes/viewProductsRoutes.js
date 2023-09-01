@@ -22,10 +22,10 @@ const viewProductsRoutesFn = (io) => {
 
   router.get("/createProducts", createProducts); // Con este metodo creo 100 productos
 
-  router.get(
-    "/realTimeProducts",
+  router.get( "/realTimeProducts",
     (req, res, next) => {
-      if (!req.session.email) {
+      //if (!req.session.email) {
+        if (!req.session.passport) {
         res.redirect("/login");
       }
       return next();

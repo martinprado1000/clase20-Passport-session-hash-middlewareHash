@@ -32,17 +32,17 @@ submitForm.addEventListener("submit", async (e) => {
         Swal.fire({
           title: `${res.data}`,
           icon: "success", // succes , warning , info , question
-          // timer: 333000,
-          // timerProgressBar: true,
+          timer: 2000,
+          timerProgressBar: true,
         });
         name.value = "";
         lastname.value = "";
         age.value = "";
         email.value = "";
         password.value = "";
-        // setTimeout(() => {
-        //   window.location.href = "http://localhost:8080/login";
-        // }, 3000);
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/login";
+        }, 2000);
       } else {
         console.log(res.data);
         Swal.fire({

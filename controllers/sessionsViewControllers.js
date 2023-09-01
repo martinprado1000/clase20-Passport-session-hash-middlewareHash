@@ -9,9 +9,10 @@ const pagesFn = (io) => {
   };
 
   const login = async (req, res) => {
-    console.log(req.flash('error'))
+    //console.log(req.flash('error'))
     //const error = req.flash('error')[0];
     //console.log(error)
+    //console.log({user:req.user, session:req.session})
     res.render("login");
   };
 

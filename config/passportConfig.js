@@ -43,23 +43,14 @@ const initializePassport = () => {
       async (username, password, done) => {
         try {
           let user = await userModel.findOne({email:username});
-          console.log(user)
           if (user == null) {
             console.log(`El usuario es invalido`);
-            // res.json({
-            //   status: 400,
-            //   data: "Usuario o contraseña invalido",
-            // });
-            return done(null,false,{message:`Usuario o contraseña invalido`})
+            return done(null,false,{message:`Datos incorrectos`})
           }
           //console.log(isValidPassword(data.password,user.password)) // Aca comparo la password que me pasaron con la password hasheada, esto me retorna true o false.
           if (!isValidPassword(password, user.password)) {
             // Chequeo si las password hacen match pero antes paso la password por nuestra funcion de hash para poder comprarlas.
-            //console.log(`Contraseña invalida`);
-            // res.json({
-            //   status: 400,
-            //   data: "Usuario o contraseña invalido",
-            // });
+            console.log(`Contraseña invalida`);
             return done(null,false,{message:`Contraseña invalida`})
           }
           console.log(`${user.email} a iniciado sesion`);
@@ -74,22 +65,10 @@ const initializePassport = () => {
           //   res.json({ status: 200, data: `${user.email} a iniciado sesion` });
           // }
           return done(null,user)
-        } catch (e) {
+          } catch (e) {
           console.log("Error al leer la db");
           return done(e);
         }
-      }
-    )
-  );
-
-  passport.use(
-    // El primer parametro es un string, seria el nombre del passport. Y el segundo es una instacia.
-    "test", // Nombre del passport
-    new LocalStrategy( // Instanciamos el passport, el primer parametro es un objeto y el segundo es una fincion
-      { userNameField: "email" }, // Si no le indicamos el email toma por default el nombre si tiene.
-      async (username, password, done) => {// El username siempre hace referencia al email porque lo definimos en la linea de arriba.
-        console.log("test strategy")
-        console.log(username)
       }
     )
   );

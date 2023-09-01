@@ -1,6 +1,6 @@
 const { UserManagerDb } = require("../dao/userManagerDb");
 const { isValidPassword } = require("../utils/passwordHash");
-const flash = require("connect-flash")
+const flash = require("connect-flash");
 
 const pagesFn = (io) => {
   const manager = new UserManagerDb(io);
@@ -15,61 +15,21 @@ const pagesFn = (io) => {
   };
 
   const loginPost = async (req, res) => {
-    // const data = req.body;
-    // let response = await manager.getUser(data.email);
-    // if (response == null) {
-    //   console.log(`El usuario ${data.email} no existe`);
-    //   res.json({
-    //     status: 400,
-    //     data: "Usuario o contraseña invalido",
-    //   });
-    //   return;
-    // }
-    // //console.log(isValidPassword(data.password,response.password)) // Aca comparo la password que me pasaron con la password hasheada, esto me retorna true o false.
-    // if (!isValidPassword(data.password, response.password)) {
-    //   // Chequeo si las password hacen match pero antes paso la password por nuestra funcion de hash para poder comprarlas.
-    //   console.log(`Contraseña invalida`);
-    //   res.json({
-    //     status: 400,
-    //     data: "Usuario o contraseña invalido",
-    //   });
-    //   return;
-    // }
-    // console.log(`${data.email} a iniciado sesion`);
-    // response = response.toObject(); // Conbierto la respuesta de mongo a objeto para poder borrar el password y que no quede en el backend
-    // delete response.password; // Borro la contraseña para que no quede en el backend
-    // if (!req.session.counter) {
-    //   // Si la sesion no existe la genero
-    //   req.session.counter = 1;
-    //   //console.log(req.session.counter)
-    //   req.session.counter++;
-    //   req.session.email = data.email; // Guardo el email en la sesion
-    // } else {
-    //   console.log(req.session.counter);
-    //   //console.log(req.session)
-    // }
-    // if (response.rol == "admin") {
-    //   res.json({
-    //     status: 200,
-    //     data: `Usuario admin: ${data.email} a iniciado sesion`,
-    //   });
-    // } else {
-    //   res.json({ status: 200, data: `${data.email} a iniciado sesion` });
-    // }
-    console.log(req.flash('error'))
-    const error = req.flash('error')[0];
-    console.log(error)
-    console.log("haaaaaaaaaaaaaaaa")
-    return res.json({ status: 200, data: `${req.user} a iniciado sesion` })
-  };  
+    console.log({ user: req.user, session: req.session });
+    return res.json({
+      status: 200,
+      data: `${req.user.name} a iniciado sesion`,
+    });
+  };
 
-  const registerPost = async (req,res) => {
-    console.log(req.user) // Aca obtengo el usuario que me retorno passport
-    console.log(req.flash('error'))
+  const registerPost = async (req, res) => {
+    //console.log(req) // Aca obtengo el usuario que me retorno passport
+    //console.log(req.flash('error'))
     //const response = await manager.createUser(req.body);
-    return res.json({ "status":200 , "data":req.user })
+
+    return res.json({ status: 200, data: req.user });
     //return res.json({ status: 200, data: `Usuario registrado` })
-  }
+  };
 
   const registerDelete = async (req, res) => {
     req.session.destroy((err) => {

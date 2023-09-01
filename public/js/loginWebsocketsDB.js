@@ -28,7 +28,7 @@ submitFormLogin.addEventListener("submit", async (e) => {
       headers: { "Content-type": "application/json;charset=UTF-8" },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => response.json())  
       .then((res) => {
         //console.log(res);
         if (res.status == 200){

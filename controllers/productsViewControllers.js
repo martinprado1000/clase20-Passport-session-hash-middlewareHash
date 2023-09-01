@@ -58,7 +58,8 @@ const pagesFn = (io) => {
 
   const realTimeProducts = async (req, res) => {
     try {
-      const userSession = req.session.email;
+      const userSession = req.user;
+      console.log(req.user) //----------------------------------
       //console.log(userSession)
       const query = req.query;
       const response = await manager.getProductsPaginate(query);
